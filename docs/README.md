@@ -116,6 +116,10 @@ java-concurrency/
 ├── build.gradle                       # Gradle build configuration
 ├── gradlew                           # Gradle wrapper (Unix)
 ├── gradlew.bat                       # Gradle wrapper (Windows)
+├── test-compile.sh                   # Quick compilation script (Linux/Mac)
+├── test-compile.bat                  # Quick compilation script (Windows)
+├── simple-compile.sh                 # Simple demo compilation (Linux/Mac)
+├── simple-compile.bat                # Simple demo compilation (Windows)
 └── README.md                         # Project overview
 ```
 
@@ -152,7 +156,15 @@ cd java-concurrency
 ### **Option 2: Simple Demo (No Dependencies)**
 
 ```bash
-# Compile and run simple demo
+# Linux/Mac - Use shell script
+./simple-compile.sh
+java -cp build/classes me.valizadeh.practices.SimpleDemo
+
+# Windows - Use batch file
+simple-compile.bat
+java -cp build/classes me.valizadeh.practices.SimpleDemo
+
+# Manual compilation (all platforms)
 javac -d out src/main/java/me/valizadeh/practices/SimpleDemo.java src/main/java/me/valizadeh/practices/model/*.java
 java -cp out me.valizadeh.practices.SimpleDemo
 ```

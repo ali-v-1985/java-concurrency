@@ -43,10 +43,16 @@ This project implements a complete trading system using Java 21, demonstrating e
 The simple demo runs with just the JDK and demonstrates core concepts:
 
 ```bash
-# Compile the simple demo
-javac -d build/classes -cp "src/main/java" src/main/java/me/valizadeh/practices/model/*.java src/main/java/me/valizadeh/practices/SimpleDemo.java
+# Linux/Mac - Use shell script
+./simple-compile.sh
+java -cp build/classes me.valizadeh.practices.SimpleDemo
 
-# Run the simple demo
+# Windows - Use batch file
+simple-compile.bat
+java -cp build/classes me.valizadeh.practices.SimpleDemo
+
+# Manual compilation (all platforms)
+javac -d build/classes -cp "src/main/java" src/main/java/me/valizadeh/practices/model/*.java src/main/java/me/valizadeh/practices/SimpleDemo.java
 java -cp build/classes me.valizadeh.practices.SimpleDemo
 ```
 
@@ -68,6 +74,9 @@ The complete system with all features requires Gradle and dependencies:
 ### Option 3: Manual Compilation Test
 
 ```bash
+# Linux/Mac
+./test-compile.sh
+
 # Windows
 .\test-compile.bat
 
