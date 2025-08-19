@@ -5,7 +5,7 @@ echo.
 mkdir build\classes 2>nul
 
 echo Compiling model classes...
-javac -d build\classes src\main\java\me\valizadeh\practices\model\*.java
+javac -d build\classes src\main\java\me\valizadeh\practices\model\Trade.java src\main\java\me\valizadeh\practices\model\TradeType.java src\main\java\me\valizadeh\practices\model\TradeStatus.java src\main\java\me\valizadeh\practices\model\MarketData.java src\main\java\me\valizadeh\practices\model\OrderBookEntry.java
 
 if %ERRORLEVEL% neq 0 (
     echo ERROR: Model compilation failed

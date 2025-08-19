@@ -1,13 +1,19 @@
 package me.valizadeh.practices.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Portfolio model for tracking positions and cash
+ * Uses standard SLF4J logging and explicit getters/synchronization
  */
 public class Portfolio {
+    private static final Logger logger = LoggerFactory.getLogger(Portfolio.class);
+    
     private final String clientId;
     private final Map<String, Integer> positions = new ConcurrentHashMap<>();
     private BigDecimal cash;
@@ -15,6 +21,7 @@ public class Portfolio {
     public Portfolio(String clientId, BigDecimal initialCash) {
         this.clientId = clientId;
         this.cash = initialCash;
+        logger.debug("Created portfolio for client {} with initial cash {}", clientId, initialCash);
     }
     
     public String getClientId() {
@@ -42,6 +49,7 @@ public class Portfolio {
         if (positions.get(symbol) == 0) {
             positions.remove(symbol);
         }
+        logger.debug("Updated position for {}: {} (change: {})", symbol, positions.get(symbol), quantity);
     }
     
     @Override

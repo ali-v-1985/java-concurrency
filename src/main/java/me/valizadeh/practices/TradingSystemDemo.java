@@ -1,5 +1,7 @@
 package me.valizadeh.practices;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import me.valizadeh.practices.async.AsyncTradingOperations;
 import me.valizadeh.practices.collections.TradingConcurrentCollections;
 import me.valizadeh.practices.coordination.TradeSettlementCoordination;
@@ -9,8 +11,6 @@ import me.valizadeh.practices.loom.HighFrequencyTradingLoom;
 import me.valizadeh.practices.patterns.TradingConcurrencyPatterns;
 import me.valizadeh.practices.synchronization.PortfolioSynchronization;
 import me.valizadeh.practices.threads.OrderProcessorThreads;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -35,6 +35,7 @@ import java.util.concurrent.TimeUnit;
  * 
  * Each module demonstrates practical concurrency challenges and solutions
  * that senior developers encounter in real-world financial systems.
+ * 
  */
 public class TradingSystemDemo {
     private static final Logger logger = LoggerFactory.getLogger(TradingSystemDemo.class);
@@ -47,8 +48,43 @@ public class TradingSystemDemo {
         
         TradingSystemDemo demo = new TradingSystemDemo();
         
-        if (args.length > 0 && "interactive".equals(args[0])) {
-            demo.runInteractiveDemo();
+        if (args.length > 0) {
+            String mode = args[0].toLowerCase();
+            switch (mode) {
+                case "interactive":
+                    demo.runInteractiveDemo();
+                    break;
+                case "jmm":
+                    demo.demonstrateJavaMemoryModel();
+                    break;
+                case "threads":
+                    demo.demonstrateThreadBasics();
+                    break;
+                case "sync":
+                    demo.demonstrateSynchronization();
+                    break;
+                case "coordination":
+                    demo.demonstrateThreadCoordination();
+                    break;
+                case "executors":
+                    demo.demonstrateExecutors();
+                    break;
+                case "collections":
+                    demo.demonstrateConcurrentCollections();
+                    break;
+                case "async":
+                    demo.demonstrateAsyncProgramming();
+                    break;
+                case "patterns":
+                    demo.demonstrateConcurrencyPatterns();
+                    break;
+                case "loom":
+                    demo.demonstrateVirtualThreads();
+                    break;
+                default:
+                    demo.runCompleteDemo();
+                    break;
+            }
         } else {
             demo.runCompleteDemo();
         }
@@ -338,9 +374,10 @@ public class TradingSystemDemo {
         
         // Check for virtual thread support
         try {
-            Thread.ofVirtual().start(() -> {}).join();
+            // Simple check without creating/joining threads in static context
+            Class.forName("java.lang.Thread$Builder$OfVirtual");
             logger.info("   ✅ Virtual Threads: Supported (Project Loom)");
-        } catch (Exception e) {
+        } catch (ClassNotFoundException e) {
             logger.info("   ❌ Virtual Threads: Not supported");
         }
         
